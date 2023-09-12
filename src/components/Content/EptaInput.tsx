@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useState} from "react";
 
-interface EptaInputProps extends React.HTMLAttributes<HTMLInputElement> {
+interface EptaInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   callbackHandler: (text: string) => void,
 }
 
@@ -25,9 +25,9 @@ export const EptaInput: React.FC<EptaInputProps> = ({
     setText('');
   };
 
-  return <div className='flex'>
+  return <div className="">
     <input
-      className='bg-amber-50 text-gray-900'
+      className="bg-amber-50 text-gray-900"
       type="text"
       placeholder="placeholder"
       {...attributes}
@@ -35,10 +35,10 @@ export const EptaInput: React.FC<EptaInputProps> = ({
       onChange={(e) => inputHandler(e)}
     />
     <button
-      className='ml-1 bg-amber-50 px-2 text-gray-900'
+      className="ml-1 px-2 text-gray-900"
       onClick={buttonHandler}
     >Add
     </button>
-    {error && <div style={{color: "red"}}>ERROR PLEASE FILL THE FIELD</div>}
+    {error && <div style={{color: "red"}}>ERROR!!! FIELD IS EMPTY</div>}
   </div>;
 };

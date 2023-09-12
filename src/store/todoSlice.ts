@@ -1,60 +1,88 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {v1} from "uuid";
 
-type Todo = {
+interface List {
   id: string;
   title: string;
   isComplete: boolean;
 }
-type TodoState = {
-  list: Array<Todo>
+
+interface Todos {
+  todoId: string;
+  todoTitle: string;
+  list: string;
 }
+
+interface Lists {
+  [key: string]: List[];
+}
+
+interface TodoState {
+  todosList: Todos[];
+  lists: Lists;
+}
+
 const initialState: TodoState = {
-  list: [{
-    id: v1(),
-    title: 'asfaewfase',
-    isComplete: true,
-  }, {
-    id: v1(),
-    title: '12312312',
-    isComplete: false,
-  }, {
-    id: v1(),
-    title: 'qqqqqqqqqqqqq',
-    isComplete: false,
-  }]
+  todosList: [],
+  lists: {},
 };
 
 const todoSlice = createSlice({
   name: 'todos',
   initialState,
   reducers: {
-    addTodo(state, action: PayloadAction<string>): void {
-      state.list.unshift({
-        id: v1(),
-        title: action.payload,
-        isComplete: false
-      });
-
+    createTodo(state, action: PayloadAction<string>): void {
+      const idList = v1();
+      state.todosList.unshift({todoId: v1(), todoTitle: action.payload, list: idList});
+      state.lists[idList] = [];
+    },
+    addTodo(state, action: PayloadAction<{
+      todoListId: string,
+      title: string
+    }>): void {
+      if (state.lists[action.payload.todoListId] && action.payload.title) {
+        state.lists[action.payload.todoListId].unshift({
+          id: v1(),
+          title: action.payload.title,
+          isComplete: false
+        });
+      }
+    },
+    removeTodoList(state, action: PayloadAction<{
+      todoListId: string,
+      listId: string
+    }>): void {
+      if (state.lists[action.payload.todoListId] && action.payload.listId) {
+        state.lists[action.payload.todoListId] = state.lists[action.payload.todoListId].filter(t => {
+          return t.id !== action.payload.listId;
+        });
+      }
+    },
+    toggleStatus(state, action: PayloadAction<{
+      todoListId: string,
+      listId: string,
+      status: boolean
+    }>): void {
+      if (state.lists[action.payload.todoListId]) {
+        const todo = state.lists[action.payload.todoListId].find(t => t.id === action.payload.listId);
+        if (todo) {
+          todo.isComplete = action.payload.status;
+        }
+      }
     },
     removeTodo(state, action: PayloadAction<string>): void {
-      state.list = state.list.filter(t => {
-        return t.id !== action.payload;
-      });
-    },
-    toggleStatus(state, action: PayloadAction<{ id: string, status: boolean }>): void {
-      const todo = state.list.find(t => t.id === action.payload.id);
-      if (todo) {
-        todo.isComplete = action.payload.status;
-      }
+      delete state.lists[action.payload];
+      state.todosList = state.todosList.filter(t => t.todoId !== action.payload);
     }
   }
 });
 
 export const {
+  createTodo,
   addTodo,
-  removeTodo,
+  removeTodoList,
   toggleStatus,
+  removeTodo
 } = todoSlice.actions;
 
 export default todoSlice.reducer;
