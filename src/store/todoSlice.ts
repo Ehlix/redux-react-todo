@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {v1} from "uuid";
 
-interface List {
+export interface List {
   id: string;
   title: string;
   isComplete: boolean;
@@ -17,7 +17,7 @@ interface Lists {
   [key: string]: List[];
 }
 
-interface TodoState {
+export interface TodoState {
   todosList: Todos[];
   lists: Lists;
 }

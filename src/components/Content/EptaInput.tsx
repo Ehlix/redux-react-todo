@@ -16,7 +16,8 @@ export const EptaInput: React.FC<EptaInputProps> = ({
     setText(e.currentTarget.value);
     setError('');
   };
-  const buttonHandler = () => {
+  const buttonHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     if (text.trim()) {
       callbackHandler(text);
     } else {
@@ -26,6 +27,7 @@ export const EptaInput: React.FC<EptaInputProps> = ({
   };
 
   return <div className="">
+    <form onSubmit={(e)=>buttonHandler(e)}>
     <input
       className="bg-amber-50 text-gray-900"
       type="text"
@@ -35,10 +37,12 @@ export const EptaInput: React.FC<EptaInputProps> = ({
       onChange={(e) => inputHandler(e)}
     />
     <button
+      type='submit'
       className="ml-1 px-2 text-gray-900"
-      onClick={buttonHandler}
     >Add
     </button>
     {error && <div style={{color: "red"}}>ERROR!!! FIELD IS EMPTY</div>}
+
+    </form>
   </div>;
 };
