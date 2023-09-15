@@ -53,7 +53,6 @@ export function Todolist() {
     if (todosListStatus && todosListStatus[todoId] === 'complete') {
       setTodosListStatus({...todosListStatus, [todoId]: 'all'});
     }
-
   };
   const getFilter = (filter: 'all' | 'current' | 'complete') => {
     currentTodo && setTodosListStatus({...todosListStatus, [currentTodo.todoId]: filter});
@@ -75,7 +74,7 @@ export function Todolist() {
           const deleteButtonHandler = () => {
             dispatch(removeTodo(t.todoId));
           };
-          return <div className="flex mb-5">
+          return <div className="flex mb-5" key={t.todoId}>
             <button
               onClick={buttonHandler}
               className={'grow mr-1 ' + color}>

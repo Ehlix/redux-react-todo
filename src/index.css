@@ -14,20 +14,4 @@ body {
     background-image: linear-gradient(45deg, rgba(246, 129, 86, 0.37), rgba(122, 116, 175, 0.76)), repeating-linear-gradient(45deg, rgba(255, 0, 0, 0.01) 1px, rgba(20, 194, 0, 0.04) 100px), repeating-linear-gradient(#2f0f1f 15px, #122034 25px);
     background-attachment: fixed;
     color: #ccc;
-    /*position: fixed;*/
-    /*display: flex;*/
-    /*top: 0;*/
-    /*left: 0;*/
-    /*width: 100%;*/
-    /*height: 100%;*/
-}
-
-#root {
-    width: 100%;
-    height: 100%;
-    margin: 0 0;
-    display: flex;
-    align-items: flex-start;
-    flex-flow: column wrap;
-
 }
