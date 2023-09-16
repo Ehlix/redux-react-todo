@@ -1,8 +1,5 @@
 import {useAppDispatch, useAppSelector} from "../../hooks.ts";
-import {
-  addTodo,
-  createTodo,
-} from "../../store/todoSlice";
+import {addTodo, createTodo,} from "../../store/todoSlice";
 import {useEffect, useState} from "react";
 
 import {CreateTodoForm} from "./CreateTodoForm.tsx";
@@ -59,17 +56,22 @@ export function TodoApp() {
 
 
   return (
-    <div className="flex">
-      <div className="">
-        <CreateTodoForm eptaHandlerCreateTodo={(t: string) => eptaHandlerCreateTodo(t)}/>
-        <AllTodosList todosList={todosList} currentTodo={currentTodo}
-                      setCurrentTodo={setCurrentTodo} dispatch={dispatch}/>
+    <div className="flex flex-col gap-5 p-5">
+      <div className="flex items-center gap-5 px-6">
+        <CreateTodoForm eptaHandlerCreateTodo={eptaHandlerCreateTodo}/>
       </div>
-      <div className="">
-        {curTodo &&
-          <MainTodo currentTodo={currentTodo} curTodo={curTodo} getFilter={getFilter}
-                    eptaHandlerAddTodo={eptaHandlerAddTodo} dispatch={dispatch}
-                    todosListStatus={todosListStatus}/>}
+      <div className="flex">
+        <div className="flex flex-col gap-3 px-3 py-5">
+          <AllTodosList todosList={todosList} currentTodo={currentTodo}
+                        setCurrentTodo={setCurrentTodo} dispatch={dispatch}/>
+        </div>
+        <div
+          className="flex shrink grow flex-col justify-between bg-gray-500 bg-opacity-20 p-5">
+          {curTodo &&
+            <MainTodo currentTodo={currentTodo} curTodo={curTodo} getFilter={getFilter}
+                      eptaHandlerAddTodo={eptaHandlerAddTodo} dispatch={dispatch}
+                      todosListStatus={todosListStatus}/>}
+        </div>
       </div>
     </div>
   );

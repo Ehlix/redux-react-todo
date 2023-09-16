@@ -21,25 +21,28 @@ export const AllTodosList = ({
                                dispatch
                              }: Props) => {
   return (
-    <div>
+    <>
       <h3 className="">Todos List:</h3>
-      {todosList.map(t => {
-        const color = currentTodo?.todoId === t.todoId ? ' bg-fuchsia-500' : ' ';
-        const buttonHandler = () => {
-          setCurrentTodo({todoId: t.todoId, todoTitle: t.todoTitle, list: t.list});
-        };
-        const deleteButtonHandler = () => {
-          dispatch(removeTodo(t.todoId));
-        };
-        return <div className="" key={t.todoId}>
-          <button
-            onClick={buttonHandler}
-            className={color}>
-            <span className="">{t.todoTitle}</span>
-          </button>
-          <button onClick={deleteButtonHandler}>X</button>
-        </div>;
-      })}
-    </div>
+      <div>
+        {todosList.map(t => {
+          const color = currentTodo?.todoId === t.todoId ? ' bg-fuchsia-500' : ' ';
+          const buttonHandler = () => {
+            setCurrentTodo({todoId: t.todoId, todoTitle: t.todoTitle, list: t.list});
+          };
+          const deleteButtonHandler = () => {
+            dispatch(removeTodo(t.todoId));
+          };
+          return <div className="" key={t.todoId}>
+            <button
+              onClick={buttonHandler}
+              className={color}>
+              <span className="">{t.todoTitle}</span>
+            </button>
+            <button onClick={deleteButtonHandler}>X</button>
+          </div>;
+        })}
+      </div>
+
+    </>
   );
 };

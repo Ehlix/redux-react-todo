@@ -61,12 +61,11 @@ const todoSlice = createSlice({
     toggleStatus(state, action: PayloadAction<{
       todoListId: string,
       listId: string,
-      status: boolean
     }>): void {
       if (state.lists[action.payload.todoListId]) {
         const todo = state.lists[action.payload.todoListId].find(t => t.id === action.payload.listId);
         if (todo) {
-          todo.isComplete = action.payload.status;
+          todo.isComplete = !todo.isComplete;
         }
       }
     },

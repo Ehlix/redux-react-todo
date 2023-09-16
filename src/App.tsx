@@ -14,14 +14,14 @@ function App() {
 
 
   return (
-    <div className="container flex flex-col h-screen">
+    <div className="container flex h-screen flex-col">
       <header>
         <nav>
           Header
         </nav>
       </header>
 
-      <main className='grow basis-auto'>
+      <main className="grow basis-auto">
         <TodoApp/>
       </main>
       <footer>

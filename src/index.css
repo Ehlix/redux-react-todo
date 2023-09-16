@@ -7,11 +7,22 @@
 }
 
 button {
-    @apply bg-purple-200 px-3 text-gray-900 hover:bg-pink-300 transition-all
+    @apply bg-purple-200 p-2 text-gray-900 hover:bg-pink-300 transition-all
 }
 
 body {
-    background-image: linear-gradient(45deg, rgba(246, 129, 86, 0.37), rgba(122, 116, 175, 0.76)), repeating-linear-gradient(45deg, rgba(255, 0, 0, 0.01) 1px, rgba(20, 194, 0, 0.04) 100px), repeating-linear-gradient(#2f0f1f 15px, #122034 25px);
+    background-image: linear-gradient(45deg, rgba(49, 20, 10, 0.37), rgba(33, 29, 51, 0.76)), repeating-linear-gradient(#2f0f1f 15px, #122034 25px);
     background-attachment: fixed;
-    color: #ccc;
+    @apply text-gray-300
 }
+
+
+
+
+
+
+
+
+
+
+

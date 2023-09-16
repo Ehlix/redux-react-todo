@@ -4,13 +4,17 @@ import {List, removeTodoList, TodoState, toggleStatus} from "../../store/todoSli
 import {TodoStatusBar} from "./TodoStatusBar.tsx";
 import {CurrentTodoState, TodosListStatusState} from "./TodoApp.tsx";
 import {AnyAction, ThunkDispatch} from "@reduxjs/toolkit";
+import * as Checkbox from '@radix-ui/react-checkbox';
+import {CheckIcon, Cross2Icon, SquareIcon} from "@radix-ui/react-icons";
 
 interface MainTodoProps {
   currentTodo: CurrentTodoState;
   curTodo: List[];
-  dispatch: ThunkDispatch<{todos: TodoState}, undefined, AnyAction> & Dispatch<AnyAction>;
-  getFilter: (filter: 'all' | 'current' | 'complete')=>void;
-  eptaHandlerAddTodo: (todoId: string, id: string, text: string)=>void;
+  dispatch: ThunkDispatch<{
+    todos: TodoState
+  }, undefined, AnyAction> & Dispatch<AnyAction>;
+  getFilter: (filter: 'all' | 'current' | 'complete') => void;
+  eptaHandlerAddTodo: (todoId: string, id: string, text: string) => void;
   todosListStatus: TodosListStatusState | undefined;
 }
 
@@ -24,42 +28,53 @@ export const MainTodo: React.FC<MainTodoProps> = ({
                                                   }) => {
 
   return (
+    <>
+      <div className="flex flex-col items-center gap-5 pb-5">
+        <h3 className="text-3xl capitalize underline">{currentTodo.todoTitle}</h3>
+        <div className="flex items-center justify-center gap-5 px-5">
+          <h2>Add task:</h2>
+          <EptaInput maxLength={300} placeholder="enter some text"
+                     callbackHandler={p => eptaHandlerAddTodo(currentTodo.todoId, currentTodo.list, p)}/>
+        </div>
+      </div>
+      <div>
+        {curTodo.map(l => {
 
-    <div>
-      <h3 className="">{currentTodo.todoTitle}</h3>
-      <EptaInput maxLength={300} placeholder="add todo"
-                 callbackHandler={p => eptaHandlerAddTodo(currentTodo.todoId, currentTodo.list, p)}/>
-
-
-      {curTodo.map(l => {
-
-        const buttonHandler = () => {
-          dispatch(removeTodoList({todoListId: currentTodo.list, listId: l.id}));
-        };
-        const checkBoxHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-          dispatch(toggleStatus({
-            todoListId: currentTodo.list,
-            listId: l.id,
-            status: e.currentTarget.checked
-          }));
-        };
-        return <div
-          className=""
-          key={l.id}>
-          <input
-            onChange={(e) => checkBoxHandler(e)}
-            type="checkbox"
-            checked={l.isComplete}
-          />
-          <span className="">{l.title}</span>
-          <button className="" onClick={buttonHandler}>X</button>
-        </div>;
-      })
-      }
+          const buttonHandler = () => {
+            dispatch(removeTodoList({todoListId: currentTodo.list, listId: l.id}));
+          };
+          const checkBoxHandler = () => {
+            dispatch(toggleStatus({
+              todoListId: currentTodo.list,
+              listId: l.id,
+            }));
+          };
+          return <div
+            className={'flex items-center justify-between ' + (l.isComplete ? 'opacity-20' : '')}
+            key={l.id}>
+            <Checkbox.Root
+              className="inline-flex appearance-none items-center justify-center bg-none outline-none h-[25px] w-[25px] checked:bg-green-500 hover:rounded-xl hover:bg-opacity-40 focus:rounded-xl focus:bg-pink-300"
+              onCheckedChange={checkBoxHandler}
+              checked={l.isComplete}
+              id="c1"
+              tabIndex={1}
+            >
+              {!l.isComplete && <SquareIcon className="text-purple-200"/>}
+              <Checkbox.Indicator className="">
+                {l.isComplete && <CheckIcon className="text-purple-200"/>}
+              </Checkbox.Indicator>
+            </Checkbox.Root>
+            <span className={l.isComplete ? 'line-through' : ''}>{l.title}</span>
+            <button tabIndex={2} className="" onClick={buttonHandler}><Cross2Icon/>
+            </button>
+          </div>;
+        })
+        }
+      </div>
       <TodoStatusBar
         curStatus={todosListStatus ? todosListStatus[currentTodo.todoId] : 'all'}
         getFilter={(q) => getFilter(q)}/>
 
-    </div>
+    </>
   );
 };
