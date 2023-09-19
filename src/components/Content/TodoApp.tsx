@@ -56,17 +56,17 @@ export function TodoApp() {
 
 
   return (
-    <div className="flex flex-col gap-5 p-5">
-      <div className="flex items-center gap-5 px-6">
+    <div className="flex h-full flex-col gap-5">
+      <div className="mb-5 flex items-center gap-5">
         <CreateTodoForm eptaHandlerCreateTodo={eptaHandlerCreateTodo}/>
       </div>
-      <div className="flex">
-        <div className="flex flex-col gap-3 px-3 py-5">
+      <div className="flex gap-5 h-[100%]">
+        <div className="flex flex-col w-[20%] h-[80vh] sm:hidden lg:w-[25%]">
           <AllTodosList todosList={todosList} currentTodo={currentTodo}
                         setCurrentTodo={setCurrentTodo} dispatch={dispatch}/>
         </div>
         <div
-          className="flex shrink grow flex-col justify-between bg-gray-500 bg-opacity-20 p-5">
+          className={"flex grow flex-col overflow-auto p-5 h-[80vh] mx-[4%] sm:mx-0 " + (curTodo ? ' bg-gradient-to-t from-1a to-2a ' : '')}>
           {curTodo &&
             <MainTodo currentTodo={currentTodo} curTodo={curTodo} getFilter={getFilter}
                       eptaHandlerAddTodo={eptaHandlerAddTodo} dispatch={dispatch}

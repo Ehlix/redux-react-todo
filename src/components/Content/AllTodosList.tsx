@@ -1,5 +1,6 @@
 import {removeTodo} from "../../store/todoSlice.ts";
 import {PayloadAction} from "@reduxjs/toolkit";
+import {TrashIcon} from "@radix-ui/react-icons";
 
 interface Todo {
   todoId: string;
@@ -22,23 +23,23 @@ export const AllTodosList = ({
                              }: Props) => {
   return (
     <>
-      <h3 className="">Todos List:</h3>
-      <div>
+      <div className="overflow-y-auto">
         {todosList.map(t => {
-          const color = currentTodo?.todoId === t.todoId ? ' bg-fuchsia-500' : ' ';
+          const color = currentTodo?.todoId === t.todoId ? ' bg-c-select-1 text-t-alt-1' : ' ';
           const buttonHandler = () => {
             setCurrentTodo({todoId: t.todoId, todoTitle: t.todoTitle, list: t.list});
           };
           const deleteButtonHandler = () => {
             dispatch(removeTodo(t.todoId));
           };
-          return <div className="" key={t.todoId}>
+          return <div className="flex overflow-x-hidden" key={t.todoId}>
             <button
               onClick={buttonHandler}
-              className={color}>
+              className={'grow ' + color}>
               <span className="">{t.todoTitle}</span>
             </button>
-            <button onClick={deleteButtonHandler}>X</button>
+            <button onClick={deleteButtonHandler}><TrashIcon className="text-c-select-1"/>
+            </button>
           </div>;
         })}
       </div>

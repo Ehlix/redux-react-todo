@@ -1,11 +1,18 @@
 import React, {Dispatch} from "react";
 import {EptaInput} from "./EptaInput.tsx";
-import {List, removeTodoList, TodoState, toggleStatus} from "../../store/todoSlice.ts";
+import {
+  editTodoList,
+  List,
+  removeTodoList,
+  TodoState,
+  toggleStatus
+} from "../../store/todoSlice.ts";
 import {TodoStatusBar} from "./TodoStatusBar.tsx";
 import {CurrentTodoState, TodosListStatusState} from "./TodoApp.tsx";
 import {AnyAction, ThunkDispatch} from "@reduxjs/toolkit";
 import * as Checkbox from '@radix-ui/react-checkbox';
-import {CheckIcon, Cross2Icon, SquareIcon} from "@radix-ui/react-icons";
+import {CheckIcon, SquareIcon, TrashIcon} from "@radix-ui/react-icons";
+import {EditableSpan} from "./EditableSpan.tsx";
 
 interface MainTodoProps {
   currentTodo: CurrentTodoState;
@@ -29,15 +36,14 @@ export const MainTodo: React.FC<MainTodoProps> = ({
 
   return (
     <>
-      <div className="flex flex-col items-center gap-5 pb-5">
-        <h3 className="text-3xl capitalize underline">{currentTodo.todoTitle}</h3>
-        <div className="flex items-center justify-center gap-5 px-5">
-          <h2>Add task:</h2>
-          <EptaInput maxLength={300} placeholder="enter some text"
-                     callbackHandler={p => eptaHandlerAddTodo(currentTodo.todoId, currentTodo.list, p)}/>
-        </div>
+      <h3 className="text-center text-3xl text-c-select-1">{currentTodo.todoTitle}</h3>
+      <div className="flex flex-col pt-5 pb-8">
+        <EptaInput maxLength={300} placeholder="enter some text"
+                   callbackHandler={p => eptaHandlerAddTodo(currentTodo.todoId, currentTodo.list, p)}
+                   buttonName="Add Task"
+        />
       </div>
-      <div>
+      <div className="overflow-y-auto">
         {curTodo.map(l => {
 
           const buttonHandler = () => {
@@ -49,32 +55,46 @@ export const MainTodo: React.FC<MainTodoProps> = ({
               listId: l.id,
             }));
           };
+          const titleChangeHandler = (title: string) => {
+            dispatch(editTodoList({
+              todoListId: currentTodo.list,
+              listId: l.id,
+              title: title,
+            }));
+          };
           return <div
-            className={'flex items-center justify-between ' + (l.isComplete ? 'opacity-20' : '')}
+            className={'hover:shadow-c-base hover:shadow-[inset_0_-2px] flex items-center justify-between ' + (l.isComplete ? 'opacity-20' : '')}
             key={l.id}>
             <Checkbox.Root
-              className="inline-flex appearance-none items-center justify-center bg-none outline-none h-[25px] w-[25px] checked:bg-green-500 hover:rounded-xl hover:bg-opacity-40 focus:rounded-xl focus:bg-pink-300"
+              className="inline-flex appearance-none items-center justify-center bg-none outline-none h-[25px] w-[25px] hover:rounded-xl focus-visible:bg-c-hover-1 focus-visible:rounded-xl"
               onCheckedChange={checkBoxHandler}
               checked={l.isComplete}
               id="c1"
               tabIndex={1}
             >
-              {!l.isComplete && <SquareIcon className="text-purple-200"/>}
+              {!l.isComplete && <div><SquareIcon className="text-c-base"/></div>}
               <Checkbox.Indicator className="">
-                {l.isComplete && <CheckIcon className="text-purple-200"/>}
+                {l.isComplete && <div className="relative flex">
+                  <SquareIcon className="text-t-base"/>
+                  <CheckIcon className="absolute text-t-base"/>
+                </div>}
               </Checkbox.Indicator>
             </Checkbox.Root>
-            <span className={l.isComplete ? 'line-through' : ''}>{l.title}</span>
-            <button tabIndex={2} className="" onClick={buttonHandler}><Cross2Icon/>
+            <EditableSpan
+              className={'text-c-base ' + (l.isComplete ? 'line-through text-t-base ' : '')}
+              callback={(p: string) => titleChangeHandler(p)} title={l.title}/>
+            {/*<span className={'text-c-base ' + (l.isComplete ? 'line-through text-t-base ' : '')}>{l.title}</span>*/}
+            <button tabIndex={2} className="" onClick={buttonHandler}><TrashIcon
+              className="text-c-select-1"/>
             </button>
           </div>;
         })
         }
       </div>
+
       <TodoStatusBar
         curStatus={todosListStatus ? todosListStatus[currentTodo.todoId] : 'all'}
         getFilter={(q) => getFilter(q)}/>
-
     </>
   );
 };

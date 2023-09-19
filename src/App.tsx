@@ -14,10 +14,10 @@ function App() {
 
 
   return (
-    <div className="container flex h-screen flex-col">
-      <header>
+    <div className="container flex h-screen flex-col overflow-hidden px-[2%]">
+      <header className="py-5">
         <nav>
-          Header
+
         </nav>
       </header>
 
@@ -25,7 +25,7 @@ function App() {
         <TodoApp/>
       </main>
       <footer>
-        footer
+        <span className="text-sm opacity-50">Ehlix 2023</span>
       </footer>
     </div>
   );

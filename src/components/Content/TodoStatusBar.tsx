@@ -16,14 +16,17 @@ export const TodoStatusBar: React.FC<propsStatusBar> = ({getFilter, curStatus}) 
     getFilter(status);
   }, [status]);
 
-  return <div className="flex">
-    <button tabIndex={3} className={(status === "all" && 'bg-fuchsia-500') + ' grow'}
+  return <div className="mt-auto flex">
+    <button tabIndex={3}
+            className={(status === "all" && 'bg-c-select-1 text-t-alt-1') + ' grow'}
             onClick={() => setStatus('all')}>All
     </button>
-    <button tabIndex={3} className={(status === "current" && 'bg-fuchsia-500') + ' grow'}
+    <button tabIndex={3}
+            className={(status === "current" && 'bg-c-select-1 text-t-alt-1') + ' grow'}
             onClick={() => setStatus('current')}>Current
     </button>
-    <button tabIndex={3} className={(status === "complete" && 'bg-fuchsia-500') + ' grow'}
+    <button tabIndex={3}
+            className={(status === "complete" && 'bg-c-select-1 text-t-alt-1') + ' grow'}
             onClick={() => setStatus('complete')}>Complete
     </button>
   </div>;

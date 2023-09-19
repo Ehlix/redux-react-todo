@@ -2,11 +2,13 @@ import React, {ChangeEvent, useState} from "react";
 
 interface EptaInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   callbackHandler: (text: string) => void,
+  buttonName?: string
 }
 
 export const EptaInput: React.FC<EptaInputProps> = ({
                                                       children,
                                                       callbackHandler,
+                                                      buttonName,
                                                       ...attributes
                                                     }) => {
   const [text, setText] = useState('');
@@ -26,10 +28,11 @@ export const EptaInput: React.FC<EptaInputProps> = ({
     setText('');
   };
 
-  return <div className="">
-    <form onSubmit={(e) => buttonHandler(e)}>
+  return <>
+    <form className="relative flex items-center justify-between gap-0"
+          onSubmit={(e) => buttonHandler(e)}>
       <input
-        className="inline-flex w-72 appearance-none items-center justify-center bg-purple-200 selection:bg-pink-300 bg-opacity-10 leading-none text-gray-900 placeholder:text-purple-300 placeholder:text-opacity-40 shadow-gray-900 outline-none h-[35px] w-[200px] px-[10px] text-[15px] selection:color-white hover:shadow-[inset_0_0_0_1px] focus:placeholder:text-gray-900 focus:placeholder:text-opacity-50 hover:shadow-amber-50 focus:bg-white"
+        className="flex shrink grow appearance-none items-center justify-center bg-opacity-10 leading-none placeholder:text-opacity-60 outline-none bg-c-base text-t-base placeholder:text-c-base h-[35px] w-[200px] px-[10px] text-[15px] selection:color-white hover:shadow-[inset_0_-2px] focus:placeholder:text-t-base hover:shadow-c-base focus:placeholder:text-opacity-30 focus:bg-white"
         type="text"
         placeholder="placeholder"
         {...attributes}
@@ -39,12 +42,14 @@ export const EptaInput: React.FC<EptaInputProps> = ({
       />
       <button
         type="submit"
-        className="ml-1 px-2 text-gray-300"
+        className="px-5 bg-c-base text-t-base p-[5.5px]"
         tabIndex={1}
-      >Add
+      >{buttonName ? buttonName : 'Add'}
       </button>
-      {error && <div style={{color: "red"}}>ERROR!!! FIELD IS EMPTY</div>}
 
+
+      {error &&
+        <div className="absolute mt-14 font-bold text-c-error">ERROR!!! FIELD IS EMPTY</div>}
     </form>
-  </div>;
+  </>;
 };

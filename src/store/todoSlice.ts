@@ -69,6 +69,16 @@ const todoSlice = createSlice({
         }
       }
     },
+    editTodoList(state, action: PayloadAction<{
+      todoListId: string,
+      listId: string,
+      title: string
+    }>): void {
+      const todo = state.lists[action.payload.todoListId].find(t => t.id === action.payload.listId);
+      if (todo) {
+        todo.title = action.payload.title;
+      }
+    },
     removeTodo(state, action: PayloadAction<string>): void {
       delete state.lists[action.payload];
       state.todosList = state.todosList.filter(t => t.todoId !== action.payload);
@@ -76,7 +86,7 @@ const todoSlice = createSlice({
     setInitialState(state, action: PayloadAction<TodoState>): void {
       state.lists = action.payload.lists;
       state.todosList = action.payload.todosList;
-    }
+    },
   }
 });
 
@@ -86,7 +96,8 @@ export const {
   removeTodoList,
   toggleStatus,
   removeTodo,
-  setInitialState
+  setInitialState,
+  editTodoList
 } = todoSlice.actions;
 
 export default todoSlice.reducer;

@@ -6,14 +6,39 @@
     padding: 0;
 }
 
+
 button {
-    @apply bg-purple-200 p-2 text-gray-900 hover:bg-pink-300 transition-all
+    @apply bg-c-base p-2 text-t-base hover:bg-c-hover-1 hover:text-t-base transition-all
 }
 
+
 body {
-    background-image: linear-gradient(45deg, rgba(49, 20, 10, 0.37), rgba(33, 29, 51, 0.76)), repeating-linear-gradient(#2f0f1f 15px, #122034 25px);
+    font-family: Tahoma, Arial, serif;
+    background-image: linear-gradient(-160deg, rgb(218, 218, 218), rgb(98, 103, 105));
     background-attachment: fixed;
-    @apply text-gray-300
+    @apply text-gray-300 selection:text-t-base selection:bg-c-hover-1
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #e879f9 #e9d5ff;
+}
+
+*::-webkit-scrollbar {
+
+    width: 7px; /* ширина всей полосы прокрутки */
+}
+
+*::-webkit-scrollbar-track {
+    @apply bg-opacity-40 bg-c-base;
+    /* цвет зоны отслеживания */
+}
+
+*::-webkit-scrollbar-thumb {
+    /*background-color: blue;    !* цвет бегунка *!*/
+    /*border-radius: 20px;       !* округлось бегунка *!*/
+    /*border: 3px solid orange;  !* отступ вокруг бегунка *!*/
+    @apply bg-c-select-1 bg-opacity-80
 }
 
 
