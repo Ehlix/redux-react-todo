@@ -34,11 +34,13 @@ export const AllTodosList = ({
           };
           return <div className="flex overflow-x-hidden" key={t.todoId}>
             <button
+              tabIndex={1}
               onClick={buttonHandler}
               className={'grow ' + color}>
               <span className="">{t.todoTitle}</span>
             </button>
-            <button onClick={deleteButtonHandler}><TrashIcon className="text-c-select-1"/>
+            <button tabIndex={0} className="" onClick={deleteButtonHandler}><TrashIcon
+              className="text-c-select-1"/>
             </button>
           </div>;
         })}

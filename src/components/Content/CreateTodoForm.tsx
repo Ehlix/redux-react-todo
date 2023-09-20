@@ -1,15 +1,15 @@
-import {EptaInput} from "./EptaInput.tsx";
+import {MyInput} from "./MyInput.tsx";
 import React from "react";
 
 interface CreateTodoFormProps {
-  eptaHandlerCreateTodo: (text: string) => void;
+  myInputHandlerCreateTodo: (text: string) => void;
 }
 
-export const CreateTodoForm: React.FC<CreateTodoFormProps> = ({eptaHandlerCreateTodo}) => {
+export const CreateTodoForm: React.FC<CreateTodoFormProps> = ({myInputHandlerCreateTodo}) => {
   return (
     <>
-      <EptaInput maxLength={40} placeholder="add title" buttonName="Create Todo List"
-                 callbackHandler={t => eptaHandlerCreateTodo(t)}/>
+      <MyInput maxLength={40} placeholder="add title" buttonName="Create Todo List"
+               callbackHandler={t => myInputHandlerCreateTodo(t)}/>
     </>
 
   );

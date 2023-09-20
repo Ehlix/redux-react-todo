@@ -10,7 +10,7 @@ function App() {
   useEffect(() => {
     const initTodos = initialStateFromLocalStorage();
     initTodos && dispatch(setInitialState(initTodos));
-  }, []);
+  });
 
 
   return (

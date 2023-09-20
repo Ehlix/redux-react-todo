@@ -39,7 +39,7 @@ export function TodoApp() {
       return q;
     }
   });
-  const eptaHandlerCreateTodo = (text: string) => {
+  const myInputHandlerCreateTodo = (text: string) => {
 
     dispatch(createTodo(text));
   };
@@ -58,7 +58,7 @@ export function TodoApp() {
   return (
     <div className="flex h-full flex-col gap-5">
       <div className="mb-5 flex items-center gap-5">
-        <CreateTodoForm eptaHandlerCreateTodo={eptaHandlerCreateTodo}/>
+        <CreateTodoForm myInputHandlerCreateTodo={myInputHandlerCreateTodo}/>
       </div>
       <div className="flex gap-5 h-[100%]">
         <div className="flex flex-col w-[20%] h-[80vh] sm:hidden lg:w-[25%]">
@@ -69,7 +69,7 @@ export function TodoApp() {
           className={"flex grow flex-col overflow-auto p-5 h-[80vh] mx-[4%] sm:mx-0 " + (curTodo ? ' bg-gradient-to-t from-1a to-2a ' : '')}>
           {curTodo &&
             <MainTodo currentTodo={currentTodo} curTodo={curTodo} getFilter={getFilter}
-                      eptaHandlerAddTodo={eptaHandlerAddTodo} dispatch={dispatch}
+                      myInputHandlerAddTodo={eptaHandlerAddTodo} dispatch={dispatch}
                       todosListStatus={todosListStatus}/>}
         </div>
       </div>

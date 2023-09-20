@@ -1,16 +1,15 @@
 import React, {ChangeEvent, useState} from "react";
 
-interface EptaInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface MyInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   callbackHandler: (text: string) => void,
   buttonName?: string
 }
 
-export const EptaInput: React.FC<EptaInputProps> = ({
-                                                      children,
-                                                      callbackHandler,
-                                                      buttonName,
-                                                      ...attributes
-                                                    }) => {
+export const MyInput: React.FC<MyInputProps> = ({
+                                                  callbackHandler,
+                                                  buttonName,
+                                                  ...attributes
+                                                }) => {
   const [text, setText] = useState('');
   const [error, setError] = useState<'error' | ''>('');
 
@@ -49,7 +48,8 @@ export const EptaInput: React.FC<EptaInputProps> = ({
 
 
       {error &&
-        <div className="absolute mt-14 font-bold text-c-error">ERROR!!! FIELD IS EMPTY</div>}
+        <div className="absolute mt-14 font-bold text-c-error">ERROR!!! FIELD IS
+          EMPTY</div>}
     </form>
   </>;
 };

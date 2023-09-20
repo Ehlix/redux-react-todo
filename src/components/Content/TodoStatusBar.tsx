@@ -7,11 +7,13 @@ interface propsStatusBar {
 
 export const TodoStatusBar: React.FC<propsStatusBar> = ({getFilter, curStatus}) => {
   const [status, setStatus] = useState<'all' | 'current' | 'complete'>('all');
+
   useEffect(() => {
     if (curStatus) {
       setStatus(curStatus);
     }
   }, [curStatus]);
+
   useEffect(() => {
     getFilter(status);
   }, [status]);
